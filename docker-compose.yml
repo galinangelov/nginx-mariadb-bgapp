@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  web:
+    image: galinangelov/bgapp-nginx
+    container_name: web
+#    deploy: - use this for cluster setup
+#      replicas: 3 - use this for cluster setup
+    ports:
+      - 8080:80
+    networks:
+      - appnet
+    depends_on:
+      - db
+
+  db:
+    image: galinangelov/bgapp-mariadb
+    container_name: db
+    networks:
+     - appnet
+    environment:
+      MYSQL_ROOT_PASSWORD: "12345"
+
+networks:
+  appnet:
